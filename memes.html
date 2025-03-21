@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Meme Generator</title>
+    <style>
+        /* Reset and Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2C3E50;
+            color: #ECF0F1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #34495E;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ECF0F1;
+            padding: 15px 20px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #2C3E50;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .controls input, .controls select, .controls button {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .controls button {
+            background-color: #3498DB;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        .controls button:hover {
+            background-color: #2980B9;
+        }
+
+        footer {
+            background-color: #2C3E50;
+            color: #ECF0F1;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .gallery img {
+            width: 150px;
+            margin: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .gallery h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .about {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #F5F5F5;
+            border-radius: 10px;
+        }
+
+        .about h2 {
+            font-size: 1.8rem;
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .controls input, .controls select, .controls button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Professional Meme Generator</h1>
+        <p>Upload, Customize, and Share Your Memes</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#create">Create Meme</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container" id="create">
+        <h2>Create Your Meme</h2>
+        <div class="controls">
+            <input type="file" id="uploadImage" accept="image/*"><br>
+            <input type="text" id="topText" placeholder="Top Text">
+            <input type="text" id="bottomText" placeholder="Bottom Text"><br>
+            <select id="shapeSelector">
+                <option value="rectangle">Rectangle</option>
+                <option value="circle">Circle</option>
+                <option value="roundedRectangle">Rounded Rectangle</option>
+            </select>
+            <input type="color" id="textColorPicker" value="#FFFFFF">
+            <label for="textColorPicker">Text Color</label><br>
+            <button onclick="generateMeme()">Generate Meme</button>
+            <button onclick="downloadMeme()">Download Meme</button>
+            <button onclick="shareMeme()">Share Meme</button>
+        </div>
+
+        <canvas id="memeCanvas" width="500" height="500"></canvas>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery" class="gallery">
+        <h2>Meme Gallery</h2>
+        <div id="gallerySection">
+            <!-- Meme previews will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="container about">
+        <h2>About This Application</h2>
+        <p>This meme generator application is designed to empower creativity and fun! It allows users to upload images, add text, and customize them with vibrant colors and unique shapes. From personalizing text sizes to applying different shapes like circles or rounded rectangles, this tool provides a fully interactive and dynamic experience. You can also download your creations, share them with friends, or showcase them in the built-in meme gallery. It’s your all-in-one solution to express humor, social commentary, or simply have fun while creating your memes!</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Meme Generator | Built with precision and passion</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('memeCanvas');
+        const ctx = canvas.getContext('2d');
+        let img = null;
+
+        document.getElementById('uploadImage').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                img = new Image();
+                img.src = e.target.result;
+                img.onload = function() {
+                    drawCanvas();
+                };
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function drawCanvas() {
+            const shape = document.getElementById('shapeSelector').value;
+            const textColor = document.getElementById('textColorPicker').value;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (img) {
+                if (shape === 'circle') {
+                    drawCircleImage();
+                } else if (shape === 'roundedRectangle') {
+                    drawRoundedRectangleImage();
+                } else {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            ctx.font = '30px Arial';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.fillText(document.getElementById('topText').value, canvas.width / 2, 50);
+            ctx.fillText(document.getElementById('bottomText').value, canvas.width / 2, canvas.height - 20);
+        }
+
+        function drawCircleImage() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = Math.min(canvas.width, canvas.height) / 2;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.restore();
+        }
+
+        function drawRoundedRectangleImage() {
+            const radius = 50;
+
+            ctx.beginPath();
+            ctx.moveTo(radius, 0);
+            ctx.lineTo(canvas.width - radius, 0);
+            ctx.quadraticCurveTo(canvas.width, 0, canvas.width, radius);
+            ctx.lineTo(canvas.width, canvas.height - radius);
+            ctx.quadraticCurveTo(canvas.width, canvas.height, canvas.width - radius, canvas.height);
+            ctx.lineTo(radius, canvas.height);
+            ctx.quadraticCurveTo(0, canvas.height, 0, canvas.height - radius);
+            ctx.lineTo(0, radius);
+            ctx.quadraticCurveTo(0, 0, radius, 0);
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+
+        function generateMeme() {
+            drawCanvas();
+        }
+
+        function downloadMeme() {
+            const link = document.createElement('a');
+            link.download = 'meme.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function shareMeme() {
+            const memeUrl = canvas.toDataURL();
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Check out this meme!',
+                    text: 'Look at this meme I created!',
+                    url: memeUrl
+                }).catch(error => console.error('Sharing failed:', error));
+            } else {
+                alert('Sharing not supported on this
