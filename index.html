@@ -73,7 +73,7 @@
 <body>
     <header>
         <h1>Drag-and-Drop Customizable Meme Generator</h1>
-        <p>Upload your image, add customizable text, and drag it anywhere!</p>
+        <p>Upload your image, add customizable text, drag it anywhere, and remove it with a double-click!</p>
     </header>
 
     <div class="container">
@@ -183,6 +183,18 @@
             }
         });
 
+        // Handle double-click to remove text
+        canvas.addEventListener("dblclick", (e) => {
+            const mouseX = e.offsetX;
+            const mouseY = e.offsetY;
+
+            const textIndex = textElements.findIndex(el => isMouseOverText(mouseX, mouseY, el));
+            if (textIndex !== -1) {
+                textElements.splice(textIndex, 1); // Remove the text element from the array
+                drawCanvas();
+            }
+        });
+
         // Check if mouse is over text
         function isMouseOverText(mouseX, mouseY, textElement) {
             const textWidth = ctx.measureText(textElement.text).width;
@@ -208,4 +220,3 @@
     </script>
 </body>
 </html>
-
