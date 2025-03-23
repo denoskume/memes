@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Meme Generator</title>
     <style>
-        /* Reset and Global Styles */
+        /* Global and Layout Styles */
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
         }
 
@@ -17,11 +17,6 @@
             color: #ECF0F1;
             padding: 20px;
             text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
         }
 
         nav {
@@ -83,49 +78,6 @@
             bottom: 0;
             width: 100%;
         }
-
-        .gallery img {
-            width: 150px;
-            margin: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .gallery h2 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .about {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #F5F5F5;
-            border-radius: 10px;
-        }
-
-        .about h2 {
-            font-size: 1.8rem;
-            color: #2C3E50;
-            margin-bottom: 20px;
-        }
-
-        .about p {
-            font-size: 1.1rem;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            .controls input, .controls select, .controls button {
-                width: 100%;
-                margin: 5px 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -133,14 +85,13 @@
     <!-- Header -->
     <header>
         <h1>Professional Meme Generator</h1>
-        <p>Upload, Customize, and Share Your Memes</p>
     </header>
 
     <!-- Navigation Bar -->
     <nav>
         <a href="#create">Create Meme</a>
-        <a href="#gallery">Gallery</a>
         <a href="#about">About</a>
+        <button onclick="openGallery()">Gallery</button>
     </nav>
 
     <!-- Main Content -->
@@ -163,20 +114,6 @@
         </div>
 
         <canvas id="memeCanvas" width="500" height="500"></canvas>
-    </div>
-
-    <!-- Gallery Section -->
-    <div id="gallery" class="gallery">
-        <h2>Meme Gallery</h2>
-        <div id="gallerySection">
-            <!-- Meme previews will be dynamically added here -->
-        </div>
-    </div>
-
-    <!-- About Section -->
-    <div id="about" class="container about">
-        <h2>About This Application</h2>
-        <p>This meme generator application is designed to empower creativity and fun! It allows users to upload images, add text, and customize them with vibrant colors and unique shapes. From personalizing text sizes to applying different shapes like circles or rounded rectangles, this tool provides a fully interactive and dynamic experience. You can also download your creations, share them with friends, or showcase them in the built-in meme gallery. It’s your all-in-one solution to express humor, social commentary, or simply have fun while creating your memes!</p>
     </div>
 
     <!-- Footer -->
@@ -277,4 +214,28 @@
                     url: memeUrl
                 }).catch(error => console.error('Sharing failed:', error));
             } else {
-                alert('Sharing not supported on this
+                alert('Sharing not supported on this browser!');
+            }
+        }
+
+        function openGallery() {
+            const galleryWindow = window.open('', '_blank');
+            galleryWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Meme Gallery</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+                            img { width: 150px; margin: 10px; border: 2px solid #ddd; border-radius: 5px; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>Meme Gallery</h1>
+                        ${document.getElementById('gallerySection').innerHTML}
+                    </body>
+                </html>
+            `);
+        }
+    </script>
+</body>
+</html>
