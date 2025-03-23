@@ -4,26 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Meme Generator</title>
+    <script src="includes.js"></script> <!-- Dynamically loads header and footer -->
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #3498DB, #2ECC71);
-            color: #fff;
+            color: white;
             text-align: center;
             padding: 20px;
         }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-        }
-
         button {
             padding: 15px 30px;
             font-size: 1.2rem;
@@ -33,33 +22,18 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
         button:hover {
             background-color: #2C3E50;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #333;
-            color: #ECF0F1;
-            padding: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to the Meme Generator</h1>
-    <p>Create, share, and showcase your creativity with our powerful meme generation tool!</p>
+    <p>Unleash your creativity! Generate, customize, and share your favorite memes.</p>
     <button onclick="navigateToApplication()">Get Started</button>
-
-    <footer>
-        <p>© 2025 Meme Generator | Crafted with passion</p>
-    </footer>
-
     <script>
         function navigateToApplication() {
-            window.location.href = "index.html"; // Redirect to the main application file
+            window.location.href = "index.html";
         }
     </script>
 </body>
