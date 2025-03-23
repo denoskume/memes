@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customizable Drag-and-Drop Meme Generator</title>
+    <title>Customizable Meme Generator with Cropping</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,7 +21,7 @@
 
         .container {
             margin: 20px auto;
-            max-width: 800px;
+            max-width: 900px;
             background: white;
             padding: 20px;
             border-radius: 10px;
@@ -32,7 +32,6 @@
             border: 2px solid #ddd;
             border-radius: 10px;
             margin-top: 20px;
-            cursor: pointer;
         }
 
         .controls {
@@ -72,13 +71,15 @@
 </head>
 <body>
     <header>
-        <h1>Drag-and-Drop Customizable Meme Generator</h1>
-        <p>Upload your image, add customizable text, drag it anywhere, and remove it with a double-click!</p>
+        <h1>Customizable Meme Generator with Cropping</h1>
+        <p>Upload your image, crop it, add customizable text, and create your meme!</p>
     </header>
 
     <div class="container">
         <div class="controls">
             <input type="file" id="uploadImage" accept="image/*" title="Upload Image">
+            <button onclick="startCropping()">Crop Image</button>
+            <button onclick="applyCrop()">Apply Crop</button>
             <input type="text" id="newText" placeholder="Enter New Text">
             <input type="color" id="textColor" value="#FFFFFF" title="Text Color">
             <input type="number" id="fontSize" value="30" min="10" max="100" title="Font Size">
@@ -89,15 +90,16 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Drag-and-Drop Customizable Meme Generator</p>
+        <p>&copy; 2025 Customizable Meme Generator</p>
     </footer>
 
     <script>
         const canvas = document.getElementById("memeCanvas");
         const ctx = canvas.getContext("2d");
         let img = null;
+        let cropping = false;
+        let cropStartX, cropStartY, cropEndX, cropEndY;
 
-        // Array to store text elements
         const textElements = [];
         let activeText = null;
 
@@ -116,6 +118,61 @@
             };
             reader.readAsDataURL(file);
         });
+
+        // Start cropping
+        function startCropping() {
+            cropping = true;
+            canvas.addEventListener("mousedown", cropMouseDown);
+            canvas.addEventListener("mousemove", cropMouseMove);
+            canvas.addEventListener("mouseup", cropMouseUp);
+        }
+
+        // Handle cropping actions
+        function cropMouseDown(e) {
+            cropStartX = e.offsetX;
+            cropStartY = e.offsetY;
+        }
+
+        function cropMouseMove(e) {
+            if (cropping) {
+                drawCanvas();
+                cropEndX = e.offsetX;
+                cropEndY = e.offsetY;
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(cropStartX, cropStartY, cropEndX - cropStartX, cropEndY - cropStartY);
+            }
+        }
+
+        function cropMouseUp() {
+            cropping = false;
+            canvas.removeEventListener("mousedown", cropMouseDown);
+            canvas.removeEventListener("mousemove", cropMouseMove);
+            canvas.removeEventListener("mouseup", cropMouseUp);
+        }
+
+        // Apply crop
+        function applyCrop() {
+            if (cropStartX !== undefined && cropStartY !== undefined && cropEndX !== undefined && cropEndY !== undefined) {
+                const cropWidth = cropEndX - cropStartX;
+                const cropHeight = cropEndY - cropStartY;
+
+                // Create a temporary canvas to store cropped image
+                const tempCanvas = document.createElement("canvas");
+                const tempCtx = tempCanvas.getContext("2d");
+                tempCanvas.width = cropWidth;
+                tempCanvas.height = cropHeight;
+
+                tempCtx.drawImage(canvas, cropStartX, cropStartY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+
+                // Update main canvas with cropped image
+                img = new Image();
+                img.src = tempCanvas.toDataURL();
+                img.onload = function() {
+                    drawCanvas();
+                };
+            }
+        }
 
         // Add a new text element
         function addTextElement() {
@@ -157,58 +214,6 @@
             });
         }
 
-        // Handle mouse down for drag-and-drop
-        canvas.addEventListener("mousedown", (e) => {
-            const mouseX = e.offsetX;
-            const mouseY = e.offsetY;
-
-            activeText = textElements.find(el => isMouseOverText(mouseX, mouseY, el));
-            if (activeText) {
-                activeText.isDragging = true;
-            }
-        });
-
-        // Handle mouse move for dragging text
-        canvas.addEventListener("mousemove", (e) => {
-            if (activeText && activeText.isDragging) {
-                activeText.x = e.offsetX;
-                activeText.y = e.offsetY;
-                drawCanvas();
-            }
-        });
-
-        // Handle mouse up to stop dragging
-        canvas.addEventListener("mouseup", () => {
-            if (activeText) {
-                activeText.isDragging = false;
-                activeText = null;
-            }
-        });
-
-        // Handle double-click to remove text
-        canvas.addEventListener("dblclick", (e) => {
-            const mouseX = e.offsetX;
-            const mouseY = e.offsetY;
-
-            const textIndex = textElements.findIndex(el => isMouseOverText(mouseX, mouseY, el));
-            if (textIndex !== -1) {
-                textElements.splice(textIndex, 1); // Remove the text element from the array
-                drawCanvas();
-            }
-        });
-
-        // Check if mouse is over text
-        function isMouseOverText(mouseX, mouseY, textElement) {
-            const textWidth = ctx.measureText(textElement.text).width;
-            const textHeight = parseInt(textElement.fontSize);
-            return (
-                mouseX > textElement.x - textWidth / 2 &&
-                mouseX < textElement.x + textWidth / 2 &&
-                mouseY > textElement.y - textHeight &&
-                mouseY < textElement.y
-            );
-        }
-
         // Download meme
         function downloadMeme() {
             const link = document.createElement("a");
@@ -217,7 +222,6 @@
             link.click();
         }
 
-        // Initialize canvas with default state
         drawCanvas();
     </script>
 </body>
