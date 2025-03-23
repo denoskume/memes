@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Generator with Background Change</title>
+    <title>Meme Generator with Left-Aligned Controls</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,25 +28,21 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        canvas {
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
         .controls {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: flex-start;
             margin-bottom: 20px;
+            padding-left: 20px;
         }
 
         .controls input, .controls button {
-            margin: 10px;
+            margin: 10px 0;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
+            width: 95%;
         }
 
         button {
@@ -60,6 +56,14 @@
             background-color: #0056b3;
         }
 
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+
         footer {
             background-color: #2c3e50;
             color: white;
@@ -71,17 +75,22 @@
 </head>
 <body>
     <header>
-        <h1>Meme Generator with Background Change</h1>
-        <p>Upload your background and foreground images, customize text, and create your meme!</p>
+        <h1>Meme Generator with Left-Aligned Controls</h1>
+        <p>Upload images, add customizable text, and download your meme!</p>
     </header>
 
     <div class="container">
         <div class="controls">
-            <input type="file" id="backgroundImage" accept="image/*" title="Upload Background Image">
-            <input type="file" id="foregroundImage" accept="image/*" title="Upload Foreground Image">
-            <input type="text" id="newText" placeholder="Enter New Text">
-            <input type="color" id="textColor" value="#FFFFFF" title="Text Color">
-            <input type="number" id="fontSize" value="30" min="10" max="100" title="Font Size">
+            <label for="backgroundImage">Upload Background Image:</label>
+            <input type="file" id="backgroundImage" accept="image/*">
+            <label for="foregroundImage">Upload Foreground Image:</label>
+            <input type="file" id="foregroundImage" accept="image/*">
+            <label for="newText">Enter New Text:</label>
+            <input type="text" id="newText" placeholder="Enter your text">
+            <label for="textColor">Select Text Color:</label>
+            <input type="color" id="textColor" value="#FFFFFF">
+            <label for="fontSize">Select Font Size:</label>
+            <input type="number" id="fontSize" value="30" min="10" max="100">
             <button onclick="addTextElement()">Add Text</button>
             <button onclick="downloadMeme()">Download Meme</button>
         </div>
@@ -89,7 +98,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Meme Generator with Background Change</p>
+        <p>&copy; 2025 Meme Generator with Aligned Controls</p>
     </footer>
 
     <script>
