@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Gallery</title>
+    <script src="includes.js"></script>
+</head>
+<body>
+    <h1>Your Meme Gallery</h1>
+    <div id="gallery"></div>
+    <script>
+        const memes = JSON.parse(localStorage.getItem("memes")) || [];
+        const galleryDiv = document.getElementById("gallery");
+        memes.forEach(meme => {
+            const img = document.createElement("img");
+            img.src = meme;
+            img.style.margin = "10px";
+            galleryDiv.appendChild(img);
+        });
+    </script>
+</body>
+</html>
