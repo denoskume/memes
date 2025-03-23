@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Meme Generator</title>
     <script src="includes.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 800px; margin: auto; text-align: center; }
+        canvas { border: 1px solid #ddd; }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -16,7 +21,6 @@
             <select id="shapeSelector">
                 <option value="rectangle">Rectangle</option>
                 <option value="circle">Circle</option>
-                <option value="roundedRectangle">Rounded Rectangle</option>
             </select>
             <input type="color" id="textColorPicker" value="#FFFFFF"><br>
             <button onclick="generateMeme()">Generate Meme</button>
