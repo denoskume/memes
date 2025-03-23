@@ -119,7 +119,8 @@
 
         // Add a new text element
         function addTextElement() {
-            const newText = document.getElementById("newText").value || "New Text";
+            const newTextInput = document.getElementById("newText");
+            const newText = newTextInput.value || "New Text";
             const fontSize = document.getElementById("fontSize").value;
             const textColor = document.getElementById("textColor").value;
 
@@ -133,6 +134,7 @@
             };
 
             textElements.push(newTextElement);
+            newTextInput.value = ""; // Clear the text input field after adding
             drawCanvas();
         }
 
