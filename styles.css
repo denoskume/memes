@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: gray; /* Set background color */
+    
 }
 
 /* Header (Navigation bar) styling */
@@ -57,6 +57,7 @@ header.navbar a:hover {
 /* Content sections */
 main {
     margin-top: 70px; /* Creates space for the fixed header */
+    background-color: gray; /* Set background color */
 }
 
 .content-section {
