@@ -54,6 +54,44 @@ header.navbar a:hover {
     color: orange; /* Changes the text color on hover */
 }
 
+
+/* Dropdown styling */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: orange;
+    color: white;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Show the menu on hover */
+}
+
+
+
+
 /* Content sections */
 main {
     margin-top: 70px; /* Creates space for the fixed header */
