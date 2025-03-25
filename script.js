@@ -31,3 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 });
+
+// Dynamically load footer.html
+    document.addEventListener("DOMContentLoaded", () => {
+        const footerPlaceholder = document.getElementById("footer-placeholder");
+
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                footerPlaceholder.innerHTML = data;
+            })
+            .catch(error => {
+                console.error("Error loading footer:", error);
+            });
+    });
