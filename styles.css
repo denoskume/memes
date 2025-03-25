@@ -73,3 +73,41 @@ h2 {
 p {
     color: #666; /* Lighter gray for paragraphs */
 }
+
+
+
+
+/* Footer styling */
+.footer {
+    background-color: #333; /* Dark background color */
+    color: white; /* White text color */
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-links a {
+    color: #f39c12; /* Orange link color */
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+    color: white; /* Change link color on hover */
+}
+
+.footer p {
+    margin: 10px 0 0;
+    font-size: 14px;
+}
+
