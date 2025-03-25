@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: gray; /* Gray background */
+    background-color: gray; /* Set background color */
 }
 
 /* Navigation bar styling */
@@ -13,51 +13,55 @@ body {
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
-    position: fixed; /* Keeps the navigation bar fixed at the top */
+    position: fixed; /* Keeps the header fixed at the top */
     top: 0;
-    width: 100%; /* Ensures it spans the full width of the viewport */
-    z-index: 1000; /* Brings the nav bar to the topmost layer */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
+    width: 100%; /* Ensures the navbar spans the full width */
+    z-index: 1000; /* Keeps the navbar above other content */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
 }
 
 .navbar a {
     text-decoration: none;
     color: black; /* Default text color */
-    font-size: 18px; /* Text size */
+    font-size: 18px; /* Adjust font size */
     margin: 0 20px;
     position: relative;
     padding: 5px;
-    text-align: center;
-    transition: color 0.3s ease-in-out; /* Smooth color transition */
+    text-align: center; /* Center-align text */
+    transition: color 0.3s ease-in-out;
 }
 
-/* Style for the icons */
-.navbar a i {
-    font-size: 24px; /* Larger icon size */
-    display: block; /* Stack the icon above the text */
-    margin-bottom: 5px; /* Space between the icon and the text */
-}
-
-/* Hover effect for navbar items */
-.navbar a:hover {
-    color: orange; /* Change text color to orange on hover */
-}
-
-/* Dot effect */
+/* Dot hover effect */
 .navbar a::after {
     content: '';
     position: absolute;
     left: 50%; /* Centers the dot */
-    bottom: -10px; /* Places the dot below the text */
+    bottom: -10px; /* Position below the item */
     width: 10px; /* Size of the dot */
     height: 10px; /* Size of the dot */
     background-color: orange;
     border-radius: 50%; /* Makes the dot circular */
     transform: scale(0); /* Hidden by default */
     transform-origin: center;
-    transition: transform 0.3s ease-in-out; /* Smooth scale transition */
+    transition: transform 0.3s ease-in-out;
 }
 
 .navbar a:hover::after {
     transform: scale(1); /* Reveal the dot on hover */
+}
+
+/* Content sections */
+#home, #about, #insert, #galerie, #download, #share {
+    padding: 100px;
+    text-align: center;
+    margin-top: 70px; /* Add margin to account for fixed header height */
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333; /* Dark text color */
+}
+
+p {
+    color: #666; /* Slightly lighter gray for paragraphs */
 }
