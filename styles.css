@@ -1,48 +1,49 @@
 /* General styling */
 body {
     margin: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4; /* Light gray background for better contrast */
+    font-family: Arial, sans-serif;
+    
 }
 
 /* Header (Navigation bar) styling */
 header.navbar {
-    background-color: #fff;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding: 15px 0;
-    position: fixed;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    position: fixed; /* Keeps the header fixed at the top */
     top: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Slightly darker shadow for separation */
+    width: 100%; /* Ensures the navbar spans the full width */
+    z-index: 1000; /* Keeps the header above other content */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
 }
 
 header.navbar a {
     text-decoration: none;
-    color: #333; /* Neutral text color */
-    font-size: 18px;
+    color: black; /* Default text color */
+    font-size: 18px; /* Adjust font size */
     margin: 0 20px;
-    padding: 10px 15px; /* Increased padding for usability */
+    position: relative;
+    padding: 10px; /* Add padding for clickable area */
     text-align: center;
-    border-radius: 5px; /* Adds subtle rounded edges */
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out;
 }
 
 /* Dot hover effect for navbar links */
 header.navbar a::after {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -8px;
-    width: 8px;
-    height: 8px;
-    background-color: #f39c12;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: transform 0.3s ease-in-out;
+    left: 50%; /* Centers the dot */
+    bottom: -10px; /* Places the dot below the item */
+    width: 10px; /* Size of the dot */
+    height: 10px; /* Size of the dot */
+    background-color: orange;
+    border-radius: 50%; /* Makes the dot circular */
+    transform: scale(0); /* Hidden by default */
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out; /* Smooth scale transition */
 }
 
 header.navbar a:hover::after {
@@ -50,42 +51,39 @@ header.navbar a:hover::after {
 }
 
 header.navbar a:hover {
-    background-color: #f39c12; /* Highlight background on hover */
-    color: #fff; /* White text on hover */
+    color: orange; /* Changes the text color on hover */
 }
+
 
 /* Content sections */
 main {
-    margin-top: 90px; /* Creates space for the fixed header */
-    padding: 30px;
-    background-color: #eaeaea; /* Light background color */
+    margin-top: 70px; /* Creates space for the fixed header */
+    background-color: LightGray; /* Set background color */
 }
 
 .content-section {
-    padding: 80px;
+    padding: 100px;
     text-align: center;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px; /* Rounded edges for a modern look */
 }
 
 h2 {
     margin-bottom: 20px;
-    color: #222; /* Slightly darker text for emphasis */
-    font-weight: bold;
+    color: #333; /* Darker text for headings */
 }
 
 p {
-    color: #555;
-    line-height: 1.6;
+    color: #666; /* Lighter gray for paragraphs */
 }
 
 /* Footer styling */
 .footer {
-    background-color: #222;
-    color: #f9f9f9;
+    background-color: #333; /* Dark background color */
+    color: white; /* White text color */
     text-align: center;
     padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer-content {
@@ -95,19 +93,19 @@ p {
 }
 
 .footer-links a {
-    color: #f39c12;
+    color: #f39c12; /* Orange link color */
     text-decoration: none;
     margin: 0 10px;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
     transition: color 0.3s ease-in-out;
 }
 
 .footer-links a:hover {
-    color: #fff; /* Change link color to white on hover */
+    color: white; /* Change link color on hover */
 }
 
 .footer p {
-    margin: 10px 0;
+    margin: 10px 0 0;
     font-size: 14px;
 }
+
