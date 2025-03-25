@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.text();
             })
             .then(data => {
-                content.innerHTML = data; // Insert page content into the <main> element
+                // Insert page content into the <main> element
+                content.innerHTML = data;
+                console.log(`Successfully loaded: ${page}`);
             })
             .catch(error => {
                 // Display error message inside the <main> element
@@ -45,18 +47,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // Select footer placeholder
     const footerPlaceholder = document.getElementById("footer-placeholder");
 
-    // Fetch and insert footer content
-    fetch("footer.html")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Footer not found.");
-            }
-            return response.text();
-        })
-        .then(data => {
-            footerPlaceholder.innerHTML = data; // Insert footer content
-        })
-        .catch(error => {
-            console.error("Error loading footer:", error);
-        });
+    /**
+     * Function to load footer content dynamically
+     */
+    function loadFooter() {
+        fetch("footer.html")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Footer not found.");
+                }
+                return response.text();
+            })
+            .then(data => {
+                footerPlaceholder.innerHTML = data; // Insert footer content
+                console.log("Footer loaded successfully.");
+            })
+            .catch(error => {
+                footerPlaceholder.innerHTML = `<p>Unable to load footer content.</p>`;
+                console.error("Error loading footer:", error);
+            });
+    }
+
+    loadFooter(); // Load the footer on page load
 });
