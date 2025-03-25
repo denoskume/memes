@@ -1,49 +1,48 @@
 /* General styling */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4; /* Light gray background for better contrast */
 }
 
 /* Header (Navigation bar) styling */
 header.navbar {
-    background-color: white;
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    position: fixed; /* Keeps the header fixed at the top */
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+    position: fixed;
     top: 0;
-    width: 100%; /* Ensures the navbar spans the full width */
-    z-index: 1000; /* Keeps the header above other content */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Slightly darker shadow for separation */
 }
 
 header.navbar a {
     text-decoration: none;
-    color: black; /* Default text color */
-    font-size: 18px; /* Adjust font size */
+    color: #333; /* Neutral text color */
+    font-size: 18px;
     margin: 0 20px;
-    position: relative;
-    padding: 10px; /* Add padding for clickable area */
+    padding: 10px 15px; /* Increased padding for usability */
     text-align: center;
-    transition: color 0.3s ease-in-out;
+    border-radius: 5px; /* Adds subtle rounded edges */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 /* Dot hover effect for navbar links */
 header.navbar a::after {
     content: '';
     position: absolute;
-    left: 50%; /* Centers the dot */
-    bottom: -10px; /* Places the dot below the item */
-    width: 10px; /* Size of the dot */
-    height: 10px; /* Size of the dot */
-    background-color: orange;
-    border-radius: 50%; /* Makes the dot circular */
-    transform: scale(0); /* Hidden by default */
-    transform-origin: center;
-    transition: transform 0.3s ease-in-out; /* Smooth scale transition */
+    left: 50%;
+    bottom: -8px;
+    width: 8px;
+    height: 8px;
+    background-color: #f39c12;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
 }
 
 header.navbar a:hover::after {
@@ -51,9 +50,9 @@ header.navbar a:hover::after {
 }
 
 header.navbar a:hover {
-    color: orange; /* Changes the text color on hover */
+    background-color: #f39c12; /* Highlight background on hover */
+    color: #fff; /* White text on hover */
 }
-
 
 /* Dropdown styling */
 .dropdown {
@@ -64,66 +63,64 @@ header.navbar a:hover {
 .dropdown-menu {
     display: none;
     position: absolute;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 10px 0;
     margin-top: 10px;
-    border-radius: 5px;
+    border-radius: 8px; /* Rounded dropdown corners */
+    z-index: 999;
 }
 
 .dropdown-menu a {
     display: block;
     padding: 10px 20px;
     text-decoration: none;
-    color: black;
-    font-size: 14px;
+    color: #333;
+    font-size: 16px; /* Slightly larger text for readability */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dropdown-menu a:hover {
-    background-color: orange;
-    color: white;
+    background-color: #f39c12;
+    color: #fff;
 }
 
 .dropdown:hover .dropdown-menu {
     display: block; /* Show the menu on hover */
 }
 
-
-
-
 /* Content sections */
 main {
-    margin-top: 70px; /* Creates space for the fixed header */
-    background-color: LightGray; /* Set background color */
+    margin-top: 90px; /* Creates space for the fixed header */
+    padding: 30px;
+    background-color: #eaeaea; /* Light background color */
 }
 
 .content-section {
-    padding: 100px;
+    padding: 80px;
     text-align: center;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Rounded edges for a modern look */
 }
 
 h2 {
     margin-bottom: 20px;
-    color: #333; /* Darker text for headings */
+    color: #222; /* Slightly darker text for emphasis */
+    font-weight: bold;
 }
 
 p {
-    color: #666; /* Lighter gray for paragraphs */
+    color: #555;
+    line-height: 1.6;
 }
-
-
-
 
 /* Footer styling */
 .footer {
-    background-color: #333; /* Dark background color */
-    color: white; /* White text color */
+    background-color: #222;
+    color: #f9f9f9;
     text-align: center;
     padding: 20px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
 }
 
 .footer-content {
@@ -133,19 +130,19 @@ p {
 }
 
 .footer-links a {
-    color: #f39c12; /* Orange link color */
+    color: #f39c12;
     text-decoration: none;
     margin: 0 10px;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 600;
     transition: color 0.3s ease-in-out;
 }
 
 .footer-links a:hover {
-    color: white; /* Change link color on hover */
+    color: #fff; /* Change link color to white on hover */
 }
 
 .footer p {
-    margin: 10px 0 0;
+    margin: 10px 0;
     font-size: 14px;
 }
-
