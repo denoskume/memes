@@ -57,7 +57,7 @@ header.navbar a:hover {
 /* Content sections */
 main {
     margin-top: 70px; /* Creates space for the fixed header */
-    background-color: gray; /* Set background color */
+    background-color: LightGray; /* Set background color */
 }
 
 .content-section {
