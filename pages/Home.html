@@ -1,1 +1,33 @@
+<section>
+    <h2>Home</h2>
+    <p>Welcome to the Meme Generator! Select a template below to start your meme creation journey.</p>
+
+    <!-- Meme Templates Section -->
+    <div class="meme-templates">
+        <div class="meme-template" onclick="selectTemplate('drake-meme.jpg')">
+            <img src="https://via.placeholder.com/300x300?text=Drake+Meme" alt="Drake Meme">
+            <p>Drake Meme</p>
+        </div>
+        <div class="meme-template" onclick="selectTemplate('distracted-boyfriend.jpg')">
+            <img src="https://via.placeholder.com/300x300?text=Distracted+Boyfriend" alt="Distracted Boyfriend Meme">
+            <p>Distracted Boyfriend</p>
+        </div>
+        <div class="meme-template" onclick="selectTemplate('two-buttons.jpg')">
+            <img src="https://via.placeholder.com/300x300?text=Two+Buttons" alt="Two Buttons Meme">
+            <p>Two Buttons</p>
+        </div>
+        <div class="meme-template" onclick="selectTemplate('change-my-mind.jpg')">
+            <img src="https://via.placeholder.com/300x300?text=Change+My+Mind" alt="Change My Mind Meme">
+            <p>Change My Mind</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Function to handle template selection
+    function selectTemplate(template) {
+        alert(`You selected the ${template} template!`);
+        // Logic for loading the selected template into the editor can be added here
+    }
+</script>
 
