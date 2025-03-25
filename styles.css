@@ -1,76 +1,56 @@
-/* General styling */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #e5e7e9; /* Light gray background */
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-/* Navigation bar styling */
-.navbar {
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+        /* Navigation bar styling */
+        .navbar {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-.navbar a {
-    text-decoration: none;
-    color: black; /* Default text color */
-    font-size: 14px;
-    margin: 0 15px;
-    position: relative;
-    padding: 10px;
-    text-align: center;
-    transition: color 0.3s ease-in-out;
-}
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            margin: 0 15px;
+            position: relative;
+            padding: 5px;
+            text-align: center;
+            transition: color 0.3s ease-in-out;
+        }
 
-/* Style for icons in the navbar */
-.navbar a i {
-    font-size: 24px; /* Larger size for icons */
-    display: block; /* Position icons above text */
-    margin-bottom: 5px; /* Space between icon and text */
-}
+        .navbar a i {
+            font-size: 24px; /* Larger icon size */
+            display: block; /* Stack the icon above the text */
+        }
 
-/* Hover effect for navbar items */
-.navbar a:hover {
-    color: orange; /* Change text and icon color on hover */
-}
+        .navbar a:hover {
+            color: orange;
+        }
 
-/* Dot hover effect */
-.navbar a::after {
-    content: '';
-    position: absolute;
-    left: 50%; /* Center the dot */
-    bottom: -10px; /* Below the text */
-    width: 10px; /* Dot size */
-    height: 10px;
-    background-color: orange;
-    border-radius: 50%; /* Circular shape */
-    transform: scale(0); /* Hidden by default */
-    transform-origin: center;
-    transition: transform 0.3s ease-in-out;
-}
+        /* Dot effect */
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px; /* Places the dot below the text */
+            width: 10px; /* Size of the dot */
+            height: 10px; /* Size of the dot */
+            background-color: orange;
+            border-radius: 50%; /* Makes the dot circular */
+            transform: scale(0); /* Hidden by default */
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out;
+        }
 
-.navbar a:hover::after {
-    transform: scale(1); /* Reveal the dot */
-}
-
-/* Content sections styling */
-#home, #about, #insert, #galerie, #download, #share {
-    padding: 100px;
-    text-align: center;
-}
-
-h2 {
-    margin-bottom: 20px;
-    color: #333; /* Dark text color */
-}
-
-p {
-    color: #666; /* Slightly lighter gray for paragraphs */
-}
+        .navbar a:hover::after {
+            transform: scale(1); /* Reveal the dot */
+        }
