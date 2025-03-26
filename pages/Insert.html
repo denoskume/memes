@@ -1,23 +1,13 @@
 <section id="insert-section">
-    <h2 class="section-title">Meme Creation Studio</h2>
-    <p class="section-description">Upload your image, add custom text, and create hilarious memes in real time.</p>
-
-    <!-- Picture Upload Section -->
-    <div class="upload-container">
-        <label for="imageUpload" class="upload-label">Select an Image to Upload:</label>
-        <input type="file" id="imageUpload" class="upload-input" accept="image/*">
-        <button id="uploadButton" class="action-button">Upload Image</button>
-    </div>
-
-    <!-- Custom Text Input Section -->
-    <div class="text-input-container">
-        <label for="customText" class="text-label">Enter Custom Text:</label>
-        <input type="text" id="customText" class="text-input" placeholder="Your meme text here">
-        <button id="addTextButton" class="action-button">Add Text</button>
-    </div>
-
-    <!-- Canvas Area -->
-    <div class="canvas-container">
-        <canvas id="memeCanvas" class="meme-canvas" width="500" height="500"></canvas>
+    <div class="insert-container">
+        <div class="insert-controls">
+            <input type="file" id="insertUploadImage" accept="image/*" title="Upload Image">
+            <input type="text" id="insertNewText" placeholder="Enter New Text">
+            <input type="color" id="insertTextColor" value="#FFFFFF" title="Text Color">
+            <input type="number" id="insertFontSize" value="30" min="10" max="100" title="Font Size">
+            <button class="insert-button" onclick="addInsertTextElement()">Add Text</button>
+            <button class="insert-button" onclick="downloadInsertMeme()">Download Meme</button>
+        </div>
+        <canvas id="insertMemeCanvas" width="600" height="400"></canvas>
     </div>
 </section>
