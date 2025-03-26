@@ -1,13 +1,66 @@
 <section id="insert-section">
     <div class="insert-container">
         <div class="insert-controls">
-            <input type="file" id="insertUploadImage" accept="image/*" title="Upload Image">
-            <input type="text" id="insertNewText" placeholder="Enter New Text">
-            <input type="color" id="insertTextColor" value="#FFFFFF" title="Text Color">
-            <input type="number" id="insertFontSize" value="30" min="10" max="100" title="Font Size">
-            <button class="insert-button" onclick="addInsertTextElement()">Add Text</button>
-            <button class="insert-button" onclick="downloadInsertMeme()">Download Meme</button>
+            <!-- Upload Image -->
+            <input 
+                type="file" 
+                id="insertUploadImage" 
+                accept="image/*" 
+                title="Upload Image" 
+                class="insert-input"
+            >
+            
+            <!-- Add Text -->
+            <input 
+                type="text" 
+                id="insertNewText" 
+                placeholder="Enter New Text" 
+                class="insert-input"
+            >
+            
+            <!-- Pick Text Color -->
+            <input 
+                type="color" 
+                id="insertTextColor" 
+                value="#FFFFFF" 
+                title="Pick Text Color" 
+                class="insert-input"
+            >
+            
+            <!-- Font Size -->
+            <input 
+                type="number" 
+                id="insertFontSize" 
+                value="30" 
+                min="10" 
+                max="100" 
+                title="Set Font Size" 
+                class="insert-input"
+            >
+            
+            <!-- Add Text Button -->
+            <button 
+                class="insert-button" 
+                onclick="addInsertTextElement()"
+            >
+                Add Text
+            </button>
+            
+            <!-- Download Meme -->
+            <button 
+                class="insert-button" 
+                onclick="downloadInsertMeme()"
+            >
+                Download Meme
+            </button>
         </div>
-        <canvas id="insertMemeCanvas" width="600" height="400"></canvas>
+
+        <!-- Canvas for Meme Creation -->
+        <canvas 
+            id="insertMemeCanvas" 
+            class="insert-canvas" 
+            width="600" 
+            height="400"
+        ></canvas>
     </div>
 </section>
