@@ -72,131 +72,153 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// Insert Script
+// Initialize canvas and context variables
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.getElementById("insertMemeCanvas");
+    const ctx = canvas.getContext("2d");
+    let img = null;
 
-const canvas = document.getElementById("insertMemeCanvas");
-const ctx = canvas.getContext("2d");
-let img = null;
+    // Array to store text elements
+    const textElements = [];
+    let activeText = null;
 
-// Array to store text elements
-const textElements = [];
-let activeText = null;
+    // Ensure canvas and necessary elements exist before attaching listeners
+    const uploadImageInput = document.getElementById("insertUploadImage");
+    const addTextButton = document.querySelector(".insert-button.add-text");
+    const downloadButton = document.querySelector(".insert-button.download");
 
-// Upload image
-document.getElementById("insertUploadImage").addEventListener("change", function (event) {
-    const file = event.target.files[0];
-    if (!file) return;
+    if (uploadImageInput) {
+        uploadImageInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (!file) {
+                alert("No image file selected.");
+                return;
+            }
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        img = new Image();
-        img.src = e.target.result;
-        img.onload = function () {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                img = new Image();
+                img.src = e.target.result;
+                img.onload = function () {
+                    drawInsertCanvas();
+                };
+                img.onerror = function () {
+                    alert("Error loading image. Please try again.");
+                };
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    if (addTextButton) {
+        addTextButton.addEventListener("click", () => {
+            const newTextInput = document.getElementById("insertNewText");
+            const newText = newTextInput.value.trim() || "New Text";
+            const fontSize = document.getElementById("insertFontSize").value || 20;
+            const textColor = document.getElementById("insertTextColor").value || "#000000";
+
+            const newTextElement = {
+                text: newText,
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                fontSize: fontSize,
+                color: textColor,
+                isDragging: false,
+            };
+
+            textElements.push(newTextElement);
+            newTextInput.value = ""; // Clear input field
             drawInsertCanvas();
-        };
-    };
-    reader.readAsDataURL(file);
-});
-
-// Add a new text element
-function addInsertTextElement() {
-    const newTextInput = document.getElementById("insertNewText");
-    const newText = newTextInput.value || "New Text";
-    const fontSize = document.getElementById("insertFontSize").value;
-    const textColor = document.getElementById("insertTextColor").value;
-
-    const newTextElement = {
-        text: newText,
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        fontSize: fontSize,
-        color: textColor,
-        isDragging: false,
-    };
-
-    textElements.push(newTextElement);
-    newTextInput.value = ""; // Clear the text input field after adding
-    drawInsertCanvas();
-}
-
-// Draw everything on the canvas
-function drawInsertCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (img) {
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        });
     }
 
-    textElements.forEach((el) => {
-        ctx.font = `${el.fontSize}px Arial`;
-        ctx.fillStyle = el.color;
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 2;
-        ctx.textAlign = "center";
-        ctx.fillText(el.text, el.x, el.y);
-        ctx.strokeText(el.text, el.x, el.y);
+    if (downloadButton) {
+        downloadButton.addEventListener("click", () => {
+            const link = document.createElement("a");
+            link.download = "meme.png";
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    }
+
+    function drawInsertCanvas() {
+        // Ensure canvas and context are properly initialized
+        if (!canvas || !ctx) {
+            console.error("Canvas or context not found.");
+            return;
+        }
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw uploaded image if it exists
+        if (img) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+
+        // Draw all text elements
+        textElements.forEach((el) => {
+            ctx.font = `${el.fontSize}px Arial`;
+            ctx.fillStyle = el.color;
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.textAlign = "center";
+            ctx.fillText(el.text, el.x, el.y);
+            ctx.strokeText(el.text, el.x, el.y);
+        });
+    }
+
+    // Add drag-and-drop functionality for text
+    canvas.addEventListener("mousedown", (e) => {
+        const mouseX = e.offsetX;
+        const mouseY = e.offsetY;
+
+        activeText = textElements.find((el) => isMouseOverInsertText(mouseX, mouseY, el));
+        if (activeText) {
+            activeText.isDragging = true;
+        }
     });
-}
 
-// Handle mouse down for drag-and-drop
-canvas.addEventListener("mousedown", (e) => {
-    const mouseX = e.offsetX;
-    const mouseY = e.offsetY;
+    canvas.addEventListener("mousemove", (e) => {
+        if (activeText && activeText.isDragging) {
+            activeText.x = e.offsetX;
+            activeText.y = e.offsetY;
+            drawInsertCanvas();
+        }
+    });
 
-    activeText = textElements.find((el) => isMouseOverInsertText(mouseX, mouseY, el));
-    if (activeText) {
-        activeText.isDragging = true;
+    canvas.addEventListener("mouseup", () => {
+        if (activeText) {
+            activeText.isDragging = false;
+            activeText = null;
+        }
+    });
+
+    canvas.addEventListener("dblclick", (e) => {
+        const mouseX = e.offsetX;
+        const mouseY = e.offsetY;
+
+        const textIndex = textElements.findIndex((el) => isMouseOverInsertText(mouseX, mouseY, el));
+        if (textIndex !== -1) {
+            const userText = prompt("Enter text for the text box:", textElements[textIndex].text || "");
+            if (userText !== null) {
+                textElements[textIndex].text = userText.trim();
+                drawInsertCanvas();
+            }
+        }
+    });
+
+    function isMouseOverInsertText(mouseX, mouseY, textElement) {
+        const textWidth = ctx.measureText(textElement.text).width;
+        const textHeight = parseInt(textElement.fontSize);
+        return (
+            mouseX > textElement.x - textWidth / 2 &&
+            mouseX < textElement.x + textWidth / 2 &&
+            mouseY > textElement.y - textHeight &&
+            mouseY < textElement.y
+        );
     }
+
+    // Draw initial blank canvas
+    drawInsertCanvas();
 });
-
-// Handle mouse move for dragging text
-canvas.addEventListener("mousemove", (e) => {
-    if (activeText && activeText.isDragging) {
-        activeText.x = e.offsetX;
-        activeText.y = e.offsetY;
-        drawInsertCanvas();
-    }
-});
-
-// Handle mouse up to stop dragging
-canvas.addEventListener("mouseup", () => {
-    if (activeText) {
-        activeText.isDragging = false;
-        activeText = null;
-    }
-});
-
-// Handle double-click to remove text
-canvas.addEventListener("dblclick", (e) => {
-    const mouseX = e.offsetX;
-    const mouseY = e.offsetY;
-
-    const textIndex = textElements.findIndex((el) => isMouseOverInsertText(mouseX, mouseY, el));
-    if (textIndex !== -1) {
-        textElements.splice(textIndex, 1); // Remove the text element from the array
-        drawInsertCanvas();
-    }
-});
-
-// Check if mouse is over text
-function isMouseOverInsertText(mouseX, mouseY, textElement) {
-    const textWidth = ctx.measureText(textElement.text).width;
-    const textHeight = parseInt(textElement.fontSize);
-    return (
-        mouseX > textElement.x - textWidth / 2 &&
-        mouseX < textElement.x + textWidth / 2 &&
-        mouseY > textElement.y - textHeight &&
-        mouseY < textElement.y
-    );
-}
-
-// Download meme
-function downloadInsertMeme() {
-    const link = document.createElement("a");
-    link.download = "meme.png";
-    link.href = canvas.toDataURL();
-    link.click();
-}
-
-// Initialize canvas with default state
-drawInsertCanvas();
