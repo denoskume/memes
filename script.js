@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".navbar a");
     const content = document.getElementById("content");
 
-    // Load default page (Home.html) on initial visit
+ // Load default page (Home.html) on initial visit
     loadPage("pages/Home.html");
 
     // Attach click event listeners to navigation links
