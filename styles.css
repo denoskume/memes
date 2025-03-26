@@ -109,3 +109,56 @@ p {
     font-size: 14px;
 }
 
+/******************* Isert Style*****************/
+.insert-container {
+    margin: 20px auto;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.insert-canvas {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.insert-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.insert-controls input,
+.insert-controls button {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.insert-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.insert-button:hover {
+    background-color: #0056b3;
+}
+
+.insert-footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 0;
+    position: relative;
+    margin-top: 20px;
+}
+
+
